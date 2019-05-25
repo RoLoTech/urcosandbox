@@ -32,7 +32,7 @@ public class Clic extends Application {
         Scene theScene = new Scene(root);
         theStage.setScene(theScene);
 
-        Canvas canvas = new Canvas(512, 512);
+        Canvas canvas = new Canvas(1000, 1000);
         root.getChildren().add(canvas);
 
         ArrayList<String> input = new ArrayList<String>();
@@ -54,6 +54,8 @@ public class Clic extends Application {
                     }
                 });
 
+
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
@@ -64,17 +66,24 @@ public class Clic extends Application {
 
         Sprite briefcase = new Sprite();
         briefcase.setImage("briefcase.png");
-        briefcase.setPosition(200, 0);
+        briefcase.setPosition(500, 0);
+
 
         ArrayList<Sprite> moneybagList = new ArrayList<Sprite>();
 
         for (int i = 0; i < 15; i++) {
-            Sprite moneybag = new Sprite();
+         Sprite moneybag = new Sprite();
             moneybag.setImage("moneybag.png");
-            double px = 350 * Math.random() + 50;
-            double py = 350 * Math.random() + 50;
+            double px = 700* Math.random() + 50;
+            double py = 700 * Math.random() + 50;
             moneybag.setPosition(px, py);
             moneybagList.add(moneybag);
+//            Sprite moneybag = new Sprite();
+//            moneybag.setImage("moneybag.png");
+//            double px = 70*i;
+//            double py = 720;
+//            moneybag.setPosition(px, py);
+//            moneybagList.add(moneybag);
         }
 
         LongValue lastNanoTime = new LongValue(System.nanoTime());
@@ -90,14 +99,14 @@ public class Clic extends Application {
                 // game logic
 
                 briefcase.setVelocity(0, 0);
-                if (input.contains("LEFT"))
-                    briefcase.addVelocity(-100, 0);
-                if (input.contains("RIGHT"))
-                    briefcase.addVelocity(100, 0);
-                if (input.contains("UP"))
-                    briefcase.addVelocity(0, -100);
-                if (input.contains("DOWN"))
-                    briefcase.addVelocity(0, 100);
+                if (input.contains("LEFT") && briefcase.getPositionX() >= 0)
+                    briefcase.addVelocity(-300, 0);
+                if (input.contains("RIGHT") && briefcase.getPositionX() <= 900)
+                    briefcase.addVelocity(300, 0);
+                if (input.contains("UP") && briefcase.getPositionY() >= 0)
+                    briefcase.addVelocity(0, -300);
+                if (input.contains("DOWN") && briefcase.getPositionY() <= 680)
+                    briefcase.addVelocity(0, 300);
 
                 briefcase.update(elapsedTime);
 
@@ -110,13 +119,12 @@ public class Clic extends Application {
                         moneybagIter.remove();
                         score.value++;
                     }
-
                 }
 
                 // render
+                    gc.clearRect(0, 0, 1000, 1000);
+                    briefcase.render(gc);
 
-                gc.clearRect(0, 0, 512, 512);
-                briefcase.render(gc);
 
                 for (Sprite moneybag : moneybagList)
                     moneybag.render(gc);
