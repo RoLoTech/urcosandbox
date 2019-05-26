@@ -94,7 +94,11 @@ public class FlorChaser extends Application {
             danger.setImage("images/bomb.png");
             double px = 700 * Math.random() + 20;
             double py = 700 * Math.random() + 70;
-            danger.setPosition(px, py);
+            if(px!= character.getPositionX() || py!= character.getPositionY()) danger.setPosition(px, py);
+            else {
+                px= px +10;
+                py= py +10;
+            }
             dangerList.add(danger);
         }
 
