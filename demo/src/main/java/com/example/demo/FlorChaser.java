@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -17,17 +19,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class FlorChaser extends Application {
+
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage theStage) {
-        theStage.setTitle("Collect the Money Bags!");
+        theStage.setTitle("Collect the Money Bags, don't touch the bombs!");
 
         Group root = new Group();
         Scene theScene = new Scene(root);
         theStage.setScene(theScene);
+
 
         Canvas canvas = new Canvas(1000, 1000);
         root.getChildren().add(canvas);
@@ -48,6 +53,13 @@ public class FlorChaser extends Application {
                 });
 
 
+//        restartButton.setOnMouseClicked(
+//                e -> {
+//                    FlorChaser app = new FlorChaser();
+//                    app.start(theStage);
+//                });
+
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
@@ -56,14 +68,17 @@ public class FlorChaser extends Application {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
+
+
         Sprite character = new Sprite();
         character.setImage("images/character.png");
-        character.setPosition(1000, 500);
+        character.setPosition(500, 0);
+
 
 
         ArrayList<Sprite> collectibleList = new ArrayList<>();
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 7; i++) {
             Sprite collectible = new Sprite();
             collectible.setImage("images/collectible.png");
             double px = 700 * Math.random() + 50;
@@ -74,11 +89,11 @@ public class FlorChaser extends Application {
 
         ArrayList<Sprite> dangerList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             Sprite danger = new Sprite();
-            danger.setImage("images/danger.png");
-            double px = 700 * Math.random() + 35;
-            double py = 700 * Math.random() + 60;
+            danger.setImage("images/bomb.png");
+            double px = 700 * Math.random() + 20;
+            double py = 700 * Math.random() + 70;
             danger.setPosition(px, py);
             dangerList.add(danger);
         }
@@ -125,23 +140,12 @@ public class FlorChaser extends Application {
                     Sprite currentDanger = dangerIter.next();
                     if (character.intersects(currentDanger)) {
                         loss = true;
-                        score.setValue(-1);
                     }
                 }
 
                 // render
                 gc.clearRect(0, 0, 1000, 1000);
                 character.render(gc);
-
-                if (score.getValue() == 15) {
-                    Image winTrigger = new Image("images/winTrigger.png");
-                    gc.drawImage(winTrigger, 0, 0);
-                }
-                if (score.getValue() == -1) {
-                    loss = true;
-                    Image lossTrigger = new Image("images/lossTrigger.png");
-                    gc.drawImage(lossTrigger, 0, 0);
-                }
 
 
                 for (Sprite collectibleObject : collectibleList)
@@ -150,14 +154,25 @@ public class FlorChaser extends Application {
                 for (Sprite dangerObject : dangerList)
                     dangerObject.render(gc);
 
+                if (score.getValue() == 7) {
+                    Image winTrigger = new Image("images/winTrigger.png");
+                    gc.drawImage(winTrigger, 0, -100);
+                }
+                if (loss==true) {
+                    Image lossTrigger = new Image("images/lossTrigger.png");
+                    gc.drawImage(lossTrigger, 0, 0);
+                }
+
 
                 String pointsText = "Cash: $" + (100 * score.getValue());
                 gc.fillText(pointsText, 360, 36);
                 gc.strokeText(pointsText, 360, 36);
 
+
             }
         }.start();
 
         theStage.show();
+
     }
 }
