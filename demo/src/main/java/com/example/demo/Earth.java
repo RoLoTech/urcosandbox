@@ -25,7 +25,7 @@ public class Earth extends Application {
 
         Image earth = new Image("earth.png");
         Image sun = new Image("sun.png");
-        Image space = new Image("space.png");
+        Image space = new Image("images/space.png");
 
         final long startNanoTime = System.nanoTime();
 

@@ -9,10 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
 
 // Animation of Earth rotating around the sun. (Hello, world!)
 public class Alien extends Application {
@@ -35,7 +31,7 @@ public class Alien extends Application {
 
         Image earth = new Image("earth.png");
         Image sun = new Image("sun.png");
-        Image space = new Image("space.png");
+        Image space = new Image("images/space.png");
 
         AnimatedImage ufo = new AnimatedImage();
         Image[] imageArray = new Image[6];
