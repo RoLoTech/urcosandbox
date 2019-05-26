@@ -55,7 +55,6 @@ public class Clic extends Application {
                 });
 
 
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
@@ -124,6 +123,12 @@ public class Clic extends Application {
                 // render
                     gc.clearRect(0, 0, 1000, 1000);
                     briefcase.render(gc);
+
+                    if(score.value==15){
+                        Image croque = new Image("croque.png");
+                        gc.drawImage(croque, 0, 0);
+
+                    }
 
 
                 for (Sprite moneybag : moneybagList)
