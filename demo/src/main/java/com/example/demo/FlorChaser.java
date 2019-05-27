@@ -69,11 +69,9 @@ public class FlorChaser extends Application {
         gc.setLineWidth(1);
 
 
-
         Sprite character = new Sprite();
         character.setImage("images/character.png");
         character.setPosition(500, 0);
-
 
 
         ArrayList<Sprite> collectibleList = new ArrayList<>();
@@ -91,14 +89,15 @@ public class FlorChaser extends Application {
 
         for (int i = 0; i < 5; i++) {
             Sprite danger = new Sprite();
-            danger.setImage("images/bomb.png");
+            danger.setImage("images/danger.png");
             double px = 700 * Math.random() + 20;
             double py = 700 * Math.random() + 70;
-            if(px!= character.getPositionX() || py!= character.getPositionY()) danger.setPosition(px, py);
+            if (px != character.getPositionX() || py != character.getPositionY()) danger.setPosition(px, py);
             else {
-                px= px +10;
-                py= py +10;
+                px = px + 10;
+                py = py + 10;
             }
+            danger.setPosition(px, py);
             dangerList.add(danger);
         }
 
@@ -114,16 +113,14 @@ public class FlorChaser extends Application {
 
                 // game logic
 
-                boolean loss = false;
-
                 character.setVelocity(0, 0);
-                if (input.contains("LEFT") && character.getPositionX() >= 0 && !loss)
+                if (input.contains("LEFT") && character.getPositionX() >= 0 && !character.isLoss())
                     character.addVelocity(-300, 0);
-                if (input.contains("RIGHT") && character.getPositionX() <= 900 && !loss)
+                if (input.contains("RIGHT") && character.getPositionX() <= 900 && !character.isLoss())
                     character.addVelocity(300, 0);
-                if (input.contains("UP") && character.getPositionY() >= 0 && !loss)
+                if (input.contains("UP") && character.getPositionY() >= 0 && !character.isLoss())
                     character.addVelocity(0, -300);
-                if (input.contains("DOWN") && character.getPositionY() <= 680 && !loss)
+                if (input.contains("DOWN") && character.getPositionY() <= 680 && !character.isLoss())
                     character.addVelocity(0, 300);
 
                 character.update(elapsedTime);
@@ -143,7 +140,7 @@ public class FlorChaser extends Application {
                 while (dangerIter.hasNext()) {
                     Sprite currentDanger = dangerIter.next();
                     if (character.intersects(currentDanger)) {
-                        loss = true;
+                        character.setLoss(true);
                     }
                 }
 
@@ -162,7 +159,7 @@ public class FlorChaser extends Application {
                     Image winTrigger = new Image("images/winTrigger.png");
                     gc.drawImage(winTrigger, 0, -100);
                 }
-                if (loss==true) {
+                if (character.isLoss()) {
                     Image lossTrigger = new Image("images/lossTrigger.png");
                     gc.drawImage(lossTrigger, 0, 0);
                 }

@@ -12,6 +12,7 @@ public class Sprite {
     private double velocityY;
     private double width;
     private double height;
+    private boolean loss;
 
     public Sprite() {
         positionX = 0;
@@ -76,5 +77,11 @@ public class Sprite {
         return positionY;
     }
 
+    public boolean isLoss() {
+        return loss;
+    }
 
+    public void setLoss(boolean loss) {
+        this.loss = loss;
+    }
 }
