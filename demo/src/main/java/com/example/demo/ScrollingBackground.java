@@ -101,7 +101,7 @@ public class ScrollingBackground extends Application {
                 // check bounds. we scroll upwards, so the y position is negative. once it's > 0 we have reached the end of the map and stop scrolling
                 if (Double.compare(y, 0) >= 0) {
                     y = 0;
-                    Media sound = new Media(new File("sound/MEUTE - You & Me (Flume Remix)").toURI().toString());
+                    Media sound = new Media(new File("demo/src/main/resources/sound/MEUTE - You & Me (Flume Remix).mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
                 }
