@@ -25,7 +25,7 @@ public class ScrollingBackground extends Application {
     private AnimationTimer gameLoop;
 
     /**
-     * Container for the background image
+     * Container for the background image;
      */
     ImageView backgroundImageView;
 
