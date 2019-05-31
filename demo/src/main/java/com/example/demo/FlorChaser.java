@@ -89,7 +89,7 @@ public class FlorChaser extends Application {
 
         for (int i = 0; i < 5; i++) {
             Sprite danger = new Sprite();
-            danger.setImage("images/danger.png");
+            danger.setImage("images/Bomb.png");
             double px = 700 * Math.random() + 20;
             double py = 700 * Math.random() + 70;
             if (px != character.getPositionX() || py != character.getPositionY()) danger.setPosition(px, py);
