@@ -53,12 +53,6 @@ public class FlorChaser extends Application {
                 });
 
 
-//        restartButton.setOnMouseClicked(
-//                e -> {
-//                    FlorChaser app = new FlorChaser();
-//                    app.start(theStage);
-//                });
-
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
